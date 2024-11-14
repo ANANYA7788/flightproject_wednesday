@@ -39,4 +39,17 @@ export const updateFlight = async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  };
+  }
+
+  export const deleteFlight = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const flightData = await Flight.findById(id);
+        if (!flightData) {
+            return res.status(404).json({ msg: "Flight data not found" });
+        }
+        const deleteData = await Flight.findByIdAnddelete(id,req.body, {newtrue});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
